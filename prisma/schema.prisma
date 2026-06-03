@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  DEALER
+  BUYER
+}
+
+enum Condition {
+  NEW
+  USED
+}
+
+enum SellerType {
+  DEALER
+  PRIVATE
+}
+
+model Car {
+  id       Int    @id @default(autoincrement())
+  title    String
+  brand    String
+  price    Int
+  location String
+
+  year     Int
+  mileage  Int
+  image    String
+
+  condition  Condition  @default(USED)
+  sellerType SellerType @default(PRIVATE)
+
+  ownerId Int?
+  owner   User? @relation(fields: [ownerId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  name       String
+companyName String?
+
+address     String?
+verified    Boolean @default(false)
+  email      String    @unique
+  password   String
+
+  role       Role      @default(BUYER)
+
+  phone      String?
+  yardName   String?
+
+  createdAt  DateTime  @default(now())
+
+  cars       Car[]
+}

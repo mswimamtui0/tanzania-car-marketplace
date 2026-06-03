@@ -1,0 +1,26 @@
+[
+  {
+    "title": "landcruser",
+    "brand": "toyota",
+    "price": 80000000,
+    "location": "arusha",
+    "year": 2020,
+    "mileage": 90
+  },
+  {
+    "title": "spacio",
+    "brand": "toyota",
+    "price": 4000000,
+    "location": "mbeya",
+    "year": 2000,
+    "mileage": 4300
+  },
+  {
+    "title": "BMW X5",
+    "brand": "bmw",
+    "price": 55000000,
+    "location": "dar es salaam",
+    "year": 2022,
+    "mileage": 1200
+  }
+]
