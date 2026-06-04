@@ -35,7 +35,8 @@ address,
 if (res.ok) {
   alert("Registration successful!");
 } else {
-  alert("Registration failed!");
+  const data = await res.json();
+  alert(data.error || "Registration failed!");
 }
 
 
