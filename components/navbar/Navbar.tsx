@@ -20,8 +20,7 @@ export default function Navbar() {
           <a href="/cars">Cars</a>
 
           <a href="/sell">Sell Car</a>
-
-          <a href="/dealers">Dealers</a>
+          <a href="/search">Search</a>
 
           <a href="/inspection">Inspection</a>
           <a href="/login">Login</a>

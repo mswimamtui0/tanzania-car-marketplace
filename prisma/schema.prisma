@@ -30,9 +30,9 @@ model Car {
   price    Int
   location String
 
-  year     Int
-  mileage  Int
-  image    String
+  year    Int
+  mileage Int
+  image   String
 
   condition  Condition  @default(USED)
   sellerType SellerType @default(PRIVATE)
@@ -44,21 +44,22 @@ model Car {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  name       String
-companyName String?
+  id          Int     @id @default(autoincrement())
+  name        String
+  companyName String?
 
-address     String?
-verified    Boolean @default(false)
-  email      String    @unique
-  password   String
+  address  String?
+  verified Boolean @default(false)
 
-  role       Role      @default(BUYER)
+  email    String @unique
+  password String
 
-  phone      String?
-  yardName   String?
+  role Role @default(BUYER)
 
-  createdAt  DateTime  @default(now())
+  phone    String?
+  yardName String?
 
-  cars       Car[]
+  createdAt DateTime @default(now())
+
+  cars Car[]
 }

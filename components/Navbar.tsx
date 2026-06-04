@@ -6,21 +6,6 @@ export default function Navbar() {
 
       <div className="max-w-7xl mx-auto flex gap-6">
 
-        <Link href="/">
-          Home
-        </Link>
-
-        <Link href="/search">
-          Search
-        </Link>
-
-        <Link href="/admin">
-          Admin
-        </Link>
-
-        <Link href="/admin/add-car">
-          Add Car
-        </Link>
 
       </div>
 

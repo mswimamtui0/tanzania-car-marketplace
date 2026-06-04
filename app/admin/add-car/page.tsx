@@ -27,9 +27,11 @@ export default function AddCarPage() {
       },
       body: JSON.stringify({
         ...form,
+ownerId: 2,
         price: Number(form.price),
         year: Number(form.year),
         mileage: Number(form.mileage),
+
       }),
     });
 

@@ -1,125 +1,144 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import DeleteCarButton from "@/components/admin/DeleteCarButton";
 
 export default async function AdminPage() {
-  const cars = await prisma.car.findMany({
+  const totalCars = await prisma.car.count();
+
+  const totalDealers = await prisma.user.count({
+    where: {
+      role: "DEALER",
+    },
+  });
+
+  const totalUsers = await prisma.user.count();
+
+  const totalBuyers = await prisma.user.count({
+    where: {
+      role: "BUYER",
+    },
+  });
+
+  const recentCars = await prisma.car.findMany({
+    take: 5,
     orderBy: {
       createdAt: "desc",
     },
   });
 
-  const totalCars = cars.length;
-
-  const totalValue = cars.reduce(
-    (sum, car) => sum + car.price,
-    0
-  );
-
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div>
 
-      <div className="bg-slate-900 text-white p-6 shadow-lg">
-        <h1 className="text-4xl font-bold">
-          Tanzania Car Marketplace
-        </h1>
+      {/* Statistics */}
+      <div className="grid md:grid-cols-4 gap-6 mb-8">
 
-        <p className="text-gray-300 mt-2">
-          Admin Dashboard
-        </p>
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-gray-500">Cars</h3>
+          <p className="text-4xl font-bold text-blue-600">
+            {totalCars}
+          </p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-gray-500">Dealers</h3>
+          <p className="text-4xl font-bold text-green-600">
+            {totalDealers}
+          </p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-gray-500">Users</h3>
+          <p className="text-4xl font-bold text-purple-600">
+            {totalUsers}
+          </p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-gray-500">Buyers</h3>
+          <p className="text-4xl font-bold text-orange-600">
+            {totalBuyers}
+          </p>
+        </div>
+
       </div>
 
-      <div className="max-w-7xl mx-auto p-8">
+      {/* Quick Actions */}
+      <div className="bg-white rounded-xl shadow p-6 mb-8">
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <h2 className="text-2xl font-bold mb-4">
+          Quick Actions
+        </h2>
 
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-gray-500">
-              Total Cars
-            </h2>
+        <div className="flex gap-4 flex-wrap">
 
-            <p className="text-4xl font-bold text-blue-600">
-              {totalCars}
-            </p>
-          </div>
+          <Link
+            href="/admin/add-car"
+            className="bg-blue-600 text-white px-5 py-3 rounded-lg"
+          >
+            + Add Car
+          </Link>
 
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-gray-500">
-              Inventory Value
-            </h2>
+          <Link
+            href="/admin/dealers"
+            className="bg-green-600 text-white px-5 py-3 rounded-lg"
+          >
+            Dealers
+          </Link>
 
-            <p className="text-2xl font-bold text-green-600">
-              TZS {totalValue.toLocaleString()}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-gray-500">
-              Latest Update
-            </h2>
-
-            <p className="text-xl font-bold text-orange-500">
-              Live
-            </p>
-          </div>
+          <Link
+            href="/admin/users"
+            className="bg-purple-600 text-white px-5 py-3 rounded-lg"
+          >
+            Users
+          </Link>
 
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      </div>
 
-          <div className="p-6 border-b">
-            <h2 className="text-2xl font-bold">
-              Vehicle Inventory
-            </h2>
-          </div>
+      {/* Recent Cars */}
+      <div className="bg-white rounded-xl shadow p-6">
 
-          <table className="w-full">
+        <h2 className="text-2xl font-bold mb-4">
+          Recent Cars
+        </h2>
 
-            <thead className="bg-slate-800 text-white">
+        <table className="w-full">
 
-              <tr>
-                <th className="p-4 text-left">Title</th>
-                <th className="p-4 text-left">Brand</th>
-                <th className="p-4 text-left">Price</th>
-                <th className="p-4 text-left">Location</th>
-                <th className="p-4 text-left">Action</th>
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-3">Title</th>
+              <th className="text-left p-3">Brand</th>
+              <th className="text-left p-3">Price</th>
+              <th className="text-left p-3">Location</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {recentCars.map((car) => (
+              <tr
+                key={car.id}
+                className="border-b"
+              >
+                <td className="p-3">
+                  {car.title}
+                </td>
+
+                <td className="p-3">
+                  {car.brand}
+                </td>
+
+                <td className="p-3">
+                  TZS {car.price.toLocaleString()}
+                </td>
+
+                <td className="p-3">
+                  {car.location}
+                </td>
               </tr>
+            ))}
+          </tbody>
 
-            </thead>
-
-            <tbody>
-
-              {cars.map((car) => (
-                <tr
-                  key={car.id}
-                  className="border-b hover:bg-gray-50"
-                >
-                  <td className="p-4 font-medium">
-                    {car.title}
-                  </td>
-
-                  <td className="p-4">
-                    {car.brand}
-                  </td>
-
-                  <td className="p-4 text-green-600 font-bold">
-                    TZS {car.price.toLocaleString()}
-                  </td>
-
-                  <td className="p-4">
-                    {car.location}
-                  </td>
-
-                  <td className="p-4">
-                    <DeleteCarButton id={car.id} />
-                  </td>
-                </tr>
-              ))}
-
-            </tbody>
-
-          </table>
-
-        </div>
+        </table>
 
       </div>
 

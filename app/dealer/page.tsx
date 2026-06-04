@@ -1,55 +1,87 @@
-import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 
-export default function DealerPage() {
+export default async function DealerPage() {
+
+  const dealerId = 2;
+
+  const totalCars = await prisma.car.count({
+    where: {
+      ownerId: dealerId,
+    },
+  });
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div>
 
-      <div className="bg-blue-900 text-white p-6">
-        <h1 className="text-4xl font-bold">
-          Dealer Dashboard
-        </h1>
+      <h1 className="text-4xl font-bold mb-8">
+        Dealer Dashboard
+      </h1>
 
-        <p>
-          Manage your vehicles and customers
-        </p>
+      <div className="grid md:grid-cols-4 gap-6">
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h3 className="text-gray-500">
+            Total Cars
+          </h3>
+
+          <p className="text-4xl font-bold text-green-600 mt-2">
+            {totalCars}
+          </p>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h3 className="text-gray-500">
+            Active Listings
+          </h3>
+
+          <p className="text-4xl font-bold text-blue-600 mt-2">
+            {totalCars}
+          </p>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h3 className="text-gray-500">
+            Views
+          </h3>
+
+          <p className="text-4xl font-bold text-orange-500 mt-2">
+            0
+          </p>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h3 className="text-gray-500">
+            Sold Cars
+          </h3>
+
+          <p className="text-4xl font-bold text-purple-600 mt-2">
+            0
+          </p>
+        </div>
+
       </div>
 
-      <div className="max-w-6xl mx-auto p-8">
+      <div className="mt-8 bg-white rounded-xl shadow p-6">
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <h2 className="text-2xl font-bold mb-4">
+          Quick Actions
+        </h2>
 
-          <Link
+        <div className="flex gap-4 flex-wrap">
+
+          <a
             href="/admin/add-car"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-lg"
+            className="bg-green-600 text-white px-5 py-3 rounded-lg"
           >
-            <h2 className="text-2xl font-bold">
-              Add Car
-            </h2>
+            Add New Car
+          </a>
 
-            <p className="mt-2 text-gray-500">
-              Add new vehicle
-            </p>
-          </Link>
-
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h2 className="text-2xl font-bold">
-              Inventory
-            </h2>
-
-            <p className="mt-2 text-gray-500">
-              Manage your cars
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h2 className="text-2xl font-bold">
-              Messages
-            </h2>
-
-            <p className="mt-2 text-gray-500">
-              Customer inquiries
-            </p>
-          </div>
+          <a
+            href="/dealer/cars"
+            className="bg-blue-600 text-white px-5 py-3 rounded-lg"
+          >
+            Manage Cars
+          </a>
 
         </div>
 
