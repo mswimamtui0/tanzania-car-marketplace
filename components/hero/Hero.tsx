@@ -28,11 +28,11 @@ export default function Hero() {
           </a>
 
           <a
-            href="/sell"
-            className="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-xl font-bold"
-          >
-            Sell Your Car
-          </a>
+  href="/register"
+  className="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-xl font-bold"
+>
+  Sell Your Car
+</a>
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Car, Menu } from "lucide-react";
 
 export default function Navbar() {
@@ -15,16 +16,31 @@ export default function Navbar() {
 
         <div className="hidden md:flex gap-8 font-medium">
 
-          <a href="/">Home</a>
+          <Link href="/">Home</Link>
 
-          <a href="/cars">Cars</a>
+          <Link href="/cars">
+            Cars
+          </Link>
 
-          <a href="/sell">Sell Car</a>
-          <a href="/search">Search</a>
+          <Link href="/search">
+            Search
+          </Link>
 
-          <a href="/inspection">Inspection</a>
-          <a href="/login">Login</a>
-<a href="/register">Register</a>
+          <Link href="/dealers">
+            Dealers
+          </Link>
+
+          <Link href="/inspection">
+            Inspection
+          </Link>
+
+          <Link href="/register">
+            Sell a Car
+          </Link>
+
+          <Link href="/login">
+            Login
+          </Link>
 
         </div>
 
