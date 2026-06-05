@@ -10,7 +10,7 @@ import TopBrands from "@/components/home/TopBrands";
 import BodyTypes from "@/components/home/BodyTypes";
 import Newsletter from "@/components/home/Newsletter";
 
-import Footer from "@/components/Footer";
+
 
 export default function Home() {
   return (
@@ -36,7 +36,7 @@ export default function Home() {
 
 <SearchBar />
 
-      <Footer />
+     
     </>
   );
 }

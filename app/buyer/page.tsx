@@ -1,31 +1,28 @@
-export default function DealerDashboard() {
+export default function BuyerDashboard() {
   return (
     <div className="p-10">
       <h1 className="text-4xl font-bold mb-6">
-        Dealer Dashboard
+        Buyer Dashboard
       </h1>
 
       <div className="grid md:grid-cols-3 gap-6">
 
         <div className="bg-white shadow rounded-xl p-6">
           <h2 className="font-bold text-xl">
-            My Cars
+            Favorite Cars
           </h2>
-          <p>Manage all vehicle listings</p>
         </div>
 
         <div className="bg-white shadow rounded-xl p-6">
           <h2 className="font-bold text-xl">
-            Buyers
+            Saved Searches
           </h2>
-          <p>View customer inquiries</p>
         </div>
 
         <div className="bg-white shadow rounded-xl p-6">
           <h2 className="font-bold text-xl">
-            Profile
+            My Requests
           </h2>
-          <p>Manage dealership information</p>
         </div>
 
       </div>

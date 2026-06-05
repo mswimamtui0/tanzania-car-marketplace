@@ -5,7 +5,9 @@ export default function Navbar() {
     <nav className="bg-black text-white p-4">
 
       <div className="max-w-7xl mx-auto flex gap-6">
-
+<Link href="/admin">
+          Admin
+        </Link>
 
       </div>
 
