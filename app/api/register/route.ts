@@ -1,35 +1,33 @@
 import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
-try {
-const body = await req.json();
+  try {
+    const body = await req.json();
 
+    console.log("REGISTER DATA:", body);
 
-const user = await prisma.user.create({
-  data: {
-    name: body.name,
-    email: body.email,
-    password: body.password,
-    role: body.role,
-    companyName: body.companyName,
-    yardName: body.yardName,
-    phone: body.phone,
-    address: body.address,
-  },
-});
+    const user = await prisma.user.create({
+      data: {
+        name: body.name,
+        email: body.email,
+        password: body.password,
+        phone: body.phone,
+        role: body.role,
+      },
+    });
 
-return Response.json(user);
+    return Response.json(user);
+  } catch (error) {
+    console.error("REGISTER ERROR:", error);
 
-
-} catch (error) {
-console.error(error);
-
-
-return Response.json(
-  { error: String(error) },
-  { status: 500 }
-);
-
-
-}
+    return Response.json(
+      {
+        success: false,
+        error: String(error),
+      },
+      {
+        status: 500,
+      }
+    );
+  }
 }
